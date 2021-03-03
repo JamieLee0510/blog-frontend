@@ -3,6 +3,27 @@
     <Button @click="preview">預覽</Button>
     <Input v-model="title" placeholder="請輸入標題" />
     <!-- 選取圖片的 input -->
+
+    <div class="file has-name">
+      <label class="file-label">
+        <input
+          class="file-input"
+          type="file"
+          name="resume"
+          ref="myFiles"
+          @change="showFile"
+        />
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">選擇上傳圖檔 </span>
+        </span>
+        <span class="file-name"> {{ showImgText }}</span>
+      </label>
+      <img :src="fs.thumbnail" width="200" />
+    </div>
+
     <div>
       <label for="file-upload" class="custom-file-upload">
         <i class="fas cloud-upload-alt"></i>{{ showImgText }}
@@ -60,7 +81,7 @@ export default {
         thumbnail: '', // input的圖片縮圖
         size: null, // input的圖片大小
       },
-      showImgText: '選擇上傳圖檔',
+      showImgText: '目前尚未上傳',
       //上傳image時需要的常數
       file: null, // 準備拿 input type="file" 的值
     }

@@ -2,28 +2,29 @@
   <div>
     <!-- {{$route.params.id}} -->
     <!-- <Header /> -->
-    <body style="padding-top: 100px">
-      <div class="container">
-        <div class="row">
-          <div class="title col-12 mt-10">
-            <h1>{{ title }}</h1>
-          </div>
-          <div class="col-4 mt-10">
-            <h3>發布於：{{ publish_time }}</h3>
-          </div>
-          <div>
-            <img :src="{ imgUrl }" alt="" />
-          </div>
-          <div class="content-view col-12 mt-10" ref="contentContainer"></div>
+
+    <div class="container" style="height: 100vh">
+      <div class="row">
+        <div class="title col-12 mt-10">
+          <h1>{{ title }}</h1>
         </div>
+        <div class="col-4 mt-10">
+          <h3>發布於：{{ publish_time }}</h3>
+        </div>
+        <div>
+          <img :src="{ imgUrl }" alt="" />
+        </div>
+        <div class="content-view col-12 mt-10" ref="contentContainer"></div>
       </div>
-    </body>
+    </div>
+
     <!-- <Footer /> -->
   </div>
 </template>
 
 <script>
 export default {
+  layout: 'guest',
   data() {
     return {
       title: '',

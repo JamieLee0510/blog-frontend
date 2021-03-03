@@ -9,6 +9,7 @@
 <script>
 import ArticleCard from '@/components/ArticleCard.vue'
 export default {
+  layout: 'guest',
   data() {
     return {
       articles: [],

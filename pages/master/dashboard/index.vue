@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button class="btn-delete mb-3 mt-2">
+    <h1>歡迎{{ $auth.user }}</h1>
+    <button class="button">
       <nuxt-link to="/master/dashboard/newpost/edit">新增文章</nuxt-link>
     </button>
-    <h1>{{ $auth.user }}</h1>
     <ul class="list-group">
       <ArticleList :articles="articles" />
     </ul>
@@ -14,7 +14,8 @@
 import ArticleList from '@/components/ArticleList.vue'
 // import Button from 'iview'
 export default {
-  middleware: ['checkAuth'],
+  layout: 'master',
+  middleware: 'checkAuth',
   data() {
     return {
       articles: [],

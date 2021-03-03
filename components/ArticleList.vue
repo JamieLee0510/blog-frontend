@@ -11,18 +11,21 @@
             class="list-group-item d-flex justify-content-between align-items-start mt-3"
           >
             <h4>{{ article.title }}</h4>
-            <Button
-              @click="editPost(article._id)"
-              class="btn btn-primary float-right"
-            >
-              編輯
-            </Button>
-            <Button
-              @click="deletePost(article._id)"
-              class="btn btn-primary float-right"
-            >
-              刪除
-            </Button>
+            <span>
+              <Button
+                @click="editPost(article._id)"
+                class="btn btn-primary float-right"
+                style="margin-left: 10px"
+              >
+                編輯
+              </Button>
+              <Button
+                @click="deletePost(article._id)"
+                class="btn btn-primary float-right"
+              >
+                刪除
+              </Button>
+            </span>
           </li>
         </div>
       </div>

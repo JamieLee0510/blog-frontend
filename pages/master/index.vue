@@ -1,21 +1,51 @@
 <template>
-  <div>
-    <Form ref="loginFrom" :model="loginFrom" :label-width="80">
-      <!-- <FormItem label="使用者帳號" width="100">
-        <Input
-          v-model="loginFrom.username"
-          style="width: 150px"
-          placeholder="請輸入使用者帳號"
-        />
-      </FormItem> -->
-      <FormItem label="註冊信箱" width="100">
+  <div class="input_area">
+    <div class="testing">
+      <section class="section">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-4 is-offset-4">
+              <h2 class="title has-text-centered">Welcome back!</h2>
+
+              <!-- <Notification :message="error" v-if="error" /> -->
+
+              <form>
+                <div class="field">
+                  <label class="label">輸入信箱</label>
+                  <input class="input" v-model="email" />
+                  <error v-if="!email">信箱不可為空</error>
+                </div>
+                <div class="field">
+                  <label class="label">輸入密碼</label>
+                  <input class="input" v-model="password" />
+                  <error v-if="!password">密碼不可為空</error>
+                </div>
+                <div class="field"></div>
+              </form>
+              <button class="button is-dark is-fullwidth" @click="login">
+                登入
+              </button>
+
+              <!-- <div class="has-text-centered" style="margin-top: 20px">
+            <p>
+              Don't have an account?
+              <nuxt-link to="/register">Register</nuxt-link>
+            </p>
+          </div> -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- <Form ref="loginFrom" :model="loginFrom" :label-width="80">
+      <FormItem label="註冊信箱" width="300px">
         <Input
           v-model="loginFrom.email"
           style="width: 150px"
           placeholder="請輸入註冊信箱"
         />
       </FormItem>
-      <FormItem label="密碼" width="100">
+      <FormItem label="密碼" width="300px">
         <Input
           v-model="loginFrom.password"
           style="width: 150px"
@@ -27,39 +57,46 @@
         <Button type="primary" @click="login"> 登入 </Button>
         <Button type="primary" @click="testing"> 測試按鈕 </Button>
       </FormItem>
-    </Form>
+    </Form> -->
   </div>
 </template>
 
 <script>
-import { Form, FormItem, Input, Button } from 'iview'
-// const Cookie = process.client ? require('js-cookie') : undefined
+import Error from '~/components/Error.vue'
+// import { Form, FormItem, Input, Button } from 'iview'
+import error from '../../components/Error'
 export default {
   name: 'Login',
+  layout: 'master',
   components: {
-    Form,
-    FormItem,
-    Input,
-    Button,
+    // Form,
+    // FormItem,
+    // Input,
+    // Button,
+    error,
   },
   data() {
     // 初始化數據
     return {
       API_URL: 'http://localhost:3000/api/',
-      loginFrom: {
-        // username: '',
-        email: '',
-        password: '',
-      },
+      email: '',
+      password: '',
+      // loginFrom: {
+      //   email: '',
+      //   password: '',
+      // },
     }
   },
   methods: {
     async login() {
       try {
+        const loginFrom = {
+          email: this.email,
+          password: this.password,
+        }
         await this.$auth.loginWith('local', {
-          data: this.loginFrom,
+          data: loginFrom,
         })
-        console.log($auth.state.user)
         this.$router.push('/master/dashboard')
       } catch (e) {
         this.error = e.response.data.message
@@ -96,16 +133,13 @@ export default {
     //   // //   Cookie.set('Authorization', result.data)
     //   // // }
     // },
-    testing() {
-      if (localStorage) {
-        localStorage.setItem('authToken', 123)
-        console.log('success')
-      } else {
-        console.log('none')
-      }
-    },
   },
 }
 </script>
 
-<style></style>
+<style>
+.input_area {
+  margin-top: 50px;
+  text-align: center;
+}
+</style>

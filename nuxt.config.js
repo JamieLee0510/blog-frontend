@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 
 export default {
-  // 是否为开发环境
+  // 是否為開發環境
   dev: process.env.NODE_ENV !== 'production',
 
   cache: false,
@@ -27,6 +27,20 @@ export default {
         href:
           '//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
       },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css',
+      },
+
+      //for fontawesome
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // 加上下面這段fontawesome
+      {
+        rel: 'stylesheet',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css',
+      },
     ],
   },
 
@@ -43,6 +57,7 @@ export default {
     { src: '~plugins/iview', ssr: false },
     { src: '~plugins/vue-quill-editor.js', ssr: false },
     { src: '~plugins/bootstrap-vue.js', ssr: false },
+    // { src: '~/plugins/font-awesome' },
   ],
 
   script: [
@@ -76,16 +91,14 @@ export default {
   auth: {
     strategies: {
       local: {
-        token: {
-          property: 'token',
-          // required: true,
-          // type: 'Bearer'
-        },
+        // token: {
+        //   property: 'token',
+        //   // required: true,
+        //   // type: 'Bearer'
+        // },
         endpoints: {
           login: { url: 'login3', method: 'post', propertyName: 'accessToken' },
           user: { url: 'user', method: 'get', propertyName: 'data' },
-          // login: { url: 'login3', method: 'post', propertyName: 'accessToken' },
-          // user: { url: 'user', method: 'get', propertyName: 'data' },
           logout: false,
         },
       },
@@ -104,4 +117,6 @@ export default {
       }),
     ],
   },
+
+  
 }

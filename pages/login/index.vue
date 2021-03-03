@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ $auth.user }}
     <Form ref="loginFrom" :model="loginFrom" :label-width="80">
       <!-- <FormItem label="使用者帳號" width="100">
         <Input
@@ -36,6 +37,7 @@ import { Form, FormItem, Input, Button } from 'iview'
 // const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   name: 'Login',
+  layout: 'master',
   components: {
     Form,
     FormItem,
@@ -69,37 +71,6 @@ export default {
         this.error = e.response.data.message
       }
     },
-    // async loginSubmit() {
-    //   await this.$axios({
-    //     method: 'post',
-    //     url: this.API_URL + 'login3',
-    //     data: this.loginFrom,
-    //   })
-    //     .then((res) => {
-    //       if (localStorage) {
-    //         localStorage.setItem('authToken', res.data.accessToken)
-    //         localStorage.setItem('refreshToken', res.data.refreshToken)
-    //       } else {
-    //         console.log('沒有偵測到瀏覽器')
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-
-    //   // if (err) {
-    //   //   return console.log(err)
-    //   // } else {
-    //   //   if (localStorage) {
-    //   //     console.log(result.data)
-    //   //     // const access_token = result.data.accessToken
-    //   //     // localStorage.setItem('authToken', access_token)
-    //   //   }
-    //   // }
-    //   // // if (result.code === 200) {
-    //   // //   Cookie.set('Authorization', result.data)
-    //   // // }
-    // },
     testing() {
       if (localStorage) {
         localStorage.setItem('authToken', 123)

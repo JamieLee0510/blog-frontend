@@ -9,5 +9,6 @@ export default {}
 <style>
 .err-text {
   color: red;
+  background-color: #ffabab;
 }
 </style>
