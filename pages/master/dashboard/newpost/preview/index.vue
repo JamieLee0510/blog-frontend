@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { Button } from 'iview'
+import { Button } from 'view-design'
 import { mapGetters } from 'vuex'
 
 export default {

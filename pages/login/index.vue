@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { Form, FormItem, Input, Button } from 'iview'
+import { Form, FormItem, Input, Button } from 'view-design'
 // const Cookie = process.client ? require('js-cookie') : undefined
 export default {
   name: 'Login',

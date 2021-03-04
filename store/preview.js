@@ -6,6 +6,9 @@ export const state = () => ({
   //保證title
   curTitle: '',
 
+  //保證description
+  curDescription: '',
+
   //保證img file
   imgFile: undefined,
 })
@@ -22,13 +25,14 @@ export const mutations = {
   setTitle(state, payload) {
     state.curTitle = payload
   },
+  //保證description
+  setDescription(state, payload) {
+    state.curDescription = payload
+  },
   //保證img file
   setImg(state, payload) {
     state.imgFile = payload
   },
-  // recoverFile(state, payload) {
-  //   state.returnFile = payload
-  // },
 }
 
 export const getters = {
@@ -43,9 +47,12 @@ export const getters = {
   curTitle: (state) => {
     return state.curTitle
   },
+  //保證description
+  curDescription: (state) => {
+    return state.curDescription
+  },
   //保證img file
   imgFile: (state) => {
     return state.imgFile
   },
-  // imgFile: ({ imgFile }) => imgFile,
 }

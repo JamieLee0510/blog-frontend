@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <body>
-      <ArticleCard :articles="articles" />
-    </body>
+  <div style="height: 100vh">
+    <ArticleCard :articles="articles" />
   </div>
 </template>
 

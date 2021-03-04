@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { Button } from 'iview'
+import { Button } from 'view-design'
 export default {
   name: 'ArticleList',
   props: ['articles'],
@@ -47,6 +47,7 @@ export default {
     article: {
       id: '',
       title: '',
+      description: '',
       article_res: '',
       imgUrl: '',
     },
@@ -79,6 +80,7 @@ export default {
       })
         .then((res) => {
           this.article.title = res.data.result.title
+          this.article.description = res.data.result.description
           this.article.article_res = res.data.result.quill
           this.article.imgUrl = res.data.result.imgUrl
         })
@@ -94,6 +96,10 @@ export default {
     commitStore() {
       this.$store.commit('editPost/setEditId', this.article.id)
       this.$store.commit('editPost/setEditTitle', this.article.title)
+      this.$store.commit(
+        'editPost/setEditDescription',
+        this.article.description
+      )
       this.$store.commit('editPost/setEditContent', this.article.article_res)
       this.$store.commit('editPost/setEditImgUrl', this.article.imgUrl)
     },

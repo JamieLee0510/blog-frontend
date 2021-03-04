@@ -46,7 +46,9 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'iview/dist/styles/iview.css',
+    //從iview修改為view-design
+    'view-design/dist/styles/iview.css',
+    // 'iview/dist/styles/iview.css',
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',
     'quill/dist/quill.core.css',
@@ -54,7 +56,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    { src: '~plugins/iview', ssr: false },
+    { src: '~plugins/ViewUI', ssr: false },
+    // { src: '~plugins/iview', ssr: false },
     { src: '~plugins/vue-quill-editor.js', ssr: false },
     { src: '~plugins/bootstrap-vue.js', ssr: false },
     // { src: '~/plugins/font-awesome' },
@@ -117,6 +120,4 @@ export default {
       }),
     ],
   },
-
-  
 }

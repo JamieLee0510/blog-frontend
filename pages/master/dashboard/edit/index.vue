@@ -2,7 +2,22 @@
   <section class="quill-editor-container">
     <Button @click="preview">預覽</Button>
     <Button @click="backToList">回到列表</Button>
-    <Input v-model="title" placeholder="請輸入標題" />
+    <Input
+      v-model="title"
+      placeholder="請輸入標題"
+      style="margin-bottom: 5px"
+      :maxlength="60"
+      show-word-limit
+    />
+    <Input
+      v-model="description"
+      type="textarea"
+      :maxlength="130"
+      show-word-limit
+      placeholder="請輸入文章描述"
+      style="margin-bottom: 5px"
+    />
+
     <!-- 選取圖片的 input -->
     <div>
       <label for="file-upload" class="custom-file-upload">
@@ -33,7 +48,7 @@
 
 <script>
 import Vue from 'vue'
-import { Button, Input } from 'iview'
+import { Button, Input } from 'view-design'
 // import axios from '@nuxtjs/axios'
 import { mapGetters } from 'vuex'
 export default {
@@ -54,6 +69,7 @@ export default {
       qcontent: this.content,
       editorOption: null,
       title: '',
+      description: '',
       fs: {
         name: '', // input的圖檔名稱
         thumbnail: '', // input的圖片縮圖
@@ -111,6 +127,15 @@ export default {
       this.$store.commit('editPost/setEditTitle', val)
       this.mounting = false
     },
+    //用v-model綁定description，並控制Vuex狀態
+    description(val) {
+      if (this.mounting === false) {
+        this.$store.commit('editPost/setDescription', this.description)
+      }
+      this.$store.commit('editPost/setDescription', val)
+      this.mounting = false
+    },
+
     //控制image 的 Vuex狀態
     file(val) {
       if (this.mounting === false) {
@@ -127,12 +152,14 @@ export default {
     async updatePost() {
       let newTitle = this.title
       let newArticle = this.myQuillEditor.editor.delta
+      let newDesc = this.description
 
       let imgUrl = await this.ImgSubmit()
       let article_id = this.article_id
       let myValue = {
         _id: article_id,
         title: newTitle,
+        description: newDesc,
         quill: JSON.stringify(newArticle),
         imgUrl: imgUrl,
       }
@@ -206,6 +233,7 @@ export default {
       //init Vuex of editPost
       this.$store.commit('editPost/setEditId', '')
       this.$store.commit('editPost/setEditTitle', '')
+      this.$store.commit('editPost/setEditDescription', '')
       this.$store.commit('editPost/setEditDelta', undefined)
       this.$store.commit('editPost/setEditImgUrl', '')
       this.$store.commit('editPost/setEditImgFile', undefined)
@@ -220,6 +248,7 @@ export default {
     ...mapGetters('editPost', [
       'article_id',
       'article_title',
+      'article_description',
       'article_content',
       'article_img_url',
       'article_img_file',
@@ -247,6 +276,9 @@ export default {
     }
     if (this.article_title) {
       this.title = this.article_title
+    }
+    if (this.article_description) {
+      this.description = this.article_description
     }
     if (!this.file && this.article_img_url) {
       this.fs.thumbnail = this.article_img_url

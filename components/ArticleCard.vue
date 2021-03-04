@@ -1,27 +1,25 @@
 <template>
-  <div>
-    <div class="articles container">
-      <div class="row">
-        <div
-          class="article col-4"
-          v-for="article in articles"
-          :key="article._id"
-        >
-          <div class="card mt-2 ml-3">
-            <img :src="article.imgUrl" class="card-img-top" alt="..." />
-            <div class="card-body">
-              <h5 class="card-title">{{ article.title }}</h5>
-              <p class="card-text">
-                {{ article.content }}
-              </p>
+  <div class="articles container" style="margin-top: 30px">
+    <div class="row">
+      <div
+        class="article col-4"
+        v-for="article in articles"
+        :key="article._id"
+        style="margin-bottom: 10px"
+      >
+        <div class="card mt-2 ml-3" style="width: 18rem">
+          <img :src="article.imgUrl" class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">
               <nuxt-link
+                style="color: black"
                 :to="{ name: 'article-id', params: { id: article._id } }"
-                ><button class="btn btn-primary">閱讀全文</button></nuxt-link
+                >{{ article.title }}</nuxt-link
               >
-              <!-- <a :href="'/article/' + article._id" class="btn btn-primary"
-                >閱讀全文</a
-              > -->
-            </div>
+            </h5>
+            <p class="card-text">
+              {{ article.description }}
+            </p>
           </div>
         </div>
       </div>

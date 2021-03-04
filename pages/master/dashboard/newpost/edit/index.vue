@@ -1,10 +1,24 @@
 <template>
   <section class="quill-editor-container">
-    <Button @click="preview">預覽</Button>
-    <Input v-model="title" placeholder="請輸入標題" />
-    <!-- 選取圖片的 input -->
+    <Button @click="preview" style="margin-bottom: 5px">預覽</Button>
+    <Input
+      v-model="title"
+      placeholder="請輸入標題"
+      style="margin-bottom: 5px"
+      :maxlength="60"
+      show-word-limit
+    />
+    <Input
+      v-model="description"
+      type="textarea"
+      :maxlength="130"
+      show-word-limit
+      placeholder="請輸入文章描述"
+      style="margin-bottom: 5px"
+    />
 
-    <div class="file has-name">
+    <!-- 選取圖片的 input，新UI -->
+    <!-- <div class="file has-name">
       <label class="file-label">
         <input
           class="file-input"
@@ -22,8 +36,9 @@
         <span class="file-name"> {{ showImgText }}</span>
       </label>
       <img :src="fs.thumbnail" width="200" />
-    </div>
+    </div> -->
 
+    <!-- 原本版本的上傳圖片 -->
     <div>
       <label for="file-upload" class="custom-file-upload">
         <i class="fas cloud-upload-alt"></i>{{ showImgText }}
@@ -47,15 +62,15 @@
       @ready="onEditorReady($event)"
       v-quill:myQuillEditor="editorOption"
     ></div>
-    <Button @click="test">測試按鈕</Button>
     <Button @click="publish">發布</Button>
     <Button @click="save">保存並退出</Button>
+    <Button @click="testing">測試</Button>
   </section>
 </template>
 
 <script>
 import Vue from 'vue'
-import { Button, Input } from 'iview'
+import { Button, Input } from 'view-design'
 // import axios from '@nuxtjs/axios'
 import { mapGetters } from 'vuex'
 export default {
@@ -63,12 +78,6 @@ export default {
     Button,
     Input,
   },
-  // props: {
-  //   content: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
   data() {
     const self = this
     return {
@@ -76,6 +85,7 @@ export default {
       qcontent: this.content,
       editorOption: null,
       title: '',
+      description: '',
       fs: {
         name: '', // input的圖檔名稱
         thumbnail: '', // input的圖片縮圖
@@ -128,6 +138,14 @@ export default {
       this.$store.commit('preview/setTitle', val)
       this.mounting = false
     },
+    //用v-model綁定description，並控制Vuex狀態
+    description(val) {
+      if (this.mounting === false) {
+        this.$store.commit('preview/setDescription', this.description)
+      }
+      this.$store.commit('preview/setDescription', val)
+      this.mounting = false
+    },
     //控制image 的 Vuex狀態
     file(val) {
       if (this.mounting === false) {
@@ -139,22 +157,25 @@ export default {
   },
 
   methods: {
-    //testing
-    async test() {
-      let imgUrl = await this.ImgSubmit()
-      console.log(this.imgUrl)
+    //測試
+    async testing() {
+      const testingImgUrl = await this.ImgSubmit()
+      console.log(testingImgUrl)
     },
 
     //upload all data to backend through API and redirect to article page
     async publish() {
       let newTitle = this.title
+      let newDesc = this.description
       let newArticle = this.myQuillEditor.editor.delta
-      let imgUrl = await this.ImgSubmit()
+      // let imgUrl = await this.ImgSubmit()
+      let mockImgUrl = 'https://i.imgur.com/vbNHE0q.jpg'
 
       let myValue = {
         title: newTitle,
+        description: newDesc,
         quill: JSON.stringify(newArticle),
-        imgUrl: imgUrl,
+        imgUrl: mockImgUrl,
       }
 
       this.$axios({
@@ -224,7 +245,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters('preview', ['delta', 'curContent', 'curTitle', 'imgFile']),
+    ...mapGetters('preview', [
+      'delta',
+      'curContent',
+      'curTitle',
+      'curDescription',
+      'imgFile',
+    ]),
   },
   mounted() {
     this.mounting = true
@@ -233,6 +260,9 @@ export default {
     }
     if (this.curTitle) {
       this.title = this.curTitle
+    }
+    if (this.curDescription) {
+      this.description = this.curDescription
     }
     if (!this.file && this.imgFile) {
       this.file = this.imgFile

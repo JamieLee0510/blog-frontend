@@ -6,9 +6,6 @@
           <div class="columns">
             <div class="column is-4 is-offset-4">
               <h2 class="title has-text-centered">Welcome back!</h2>
-
-              <!-- <Notification :message="error" v-if="error" /> -->
-
               <form>
                 <div class="field">
                   <label class="label">輸入信箱</label>
@@ -62,7 +59,6 @@
 </template>
 
 <script>
-import Error from '~/components/Error.vue'
 // import { Form, FormItem, Input, Button } from 'iview'
 import error from '../../components/Error'
 export default {

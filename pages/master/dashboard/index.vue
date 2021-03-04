@@ -5,6 +5,7 @@
       <nuxt-link to="/master/dashboard/newpost/edit">新增文章</nuxt-link>
     </button>
     <ul class="list-group">
+      <h2>文章列表</h2>
       <ArticleList :articles="articles" />
     </ul>
   </div>

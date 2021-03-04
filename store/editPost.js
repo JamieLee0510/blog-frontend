@@ -1,6 +1,7 @@
 export const state = () => ({
   article_id: '',
   article_title: '',
+  article_description: '',
   article_content: '',
   article_delta: undefined,
   article_img_url: '',
@@ -14,6 +15,9 @@ export const mutations = {
   },
   setEditTitle(state, payload) {
     state.article_title = payload
+  },
+  setEditDescription(state, payload) {
+    state.article_description = payload
   },
   setEditContent(state, payload) {
     state.article_content = payload
@@ -38,6 +42,9 @@ export const getters = {
   },
   article_title: (state) => {
     return state.article_title
+  },
+  article_description: (state) => {
+    return state.article_description
   },
   article_content: (state) => {
     return state.article_content
