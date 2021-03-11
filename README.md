@@ -1,5 +1,9 @@
 # nuxt_blog
 
+使用Nuxt打造SSR部落格系統
+利用nuxt/auth.js控制訪客與管理者權限
+而文本編輯方面，利用vue-qill-editor來控制新增、編輯文本等操作
+
 ## Build Setup
 
 ```bash
@@ -16,5 +20,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
